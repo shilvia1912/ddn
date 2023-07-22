@@ -58,9 +58,9 @@ function form_right_news()
 function form_top_menu()
 {
     var top_menu = 
-        '<div id="main-menu">' +
-        '    <div id="main-menu-links">' +
-        '        <ul class="menu">' +
+        '<div id="main-menu11">' +
+        '    <div id="main-menu-links11">' +
+        '        <ul class="menu11">' +
         '            <li><a href="https://www.dewicode.my.id/" title="">Beranda</a></li>' +
         '            <li><a href="/p/tools.html" title="">More Tools</a></li>' +
         '            <li><a href="/p/sitemap.html" title="">Sitemap</a></li>' +
