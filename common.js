@@ -55,6 +55,21 @@ function form_right_news()
     return right_news;        
 }
 
+function form_top_menu()
+{
+    var top_menu = 
+        '<div id="main-menu">' +
+        '    <div id="main-menu-links">' +
+        '        <ul class="menu">' +
+        '            <li><a href="https://www.dewicode.my.id/" title="">Beranda</a></li>' +
+        '            <li><a href="/p/tools.html" title="">More Tools</a></li>' +
+        '            <li><a href="/p/sitemap.html" title="">Sitemap</a></li>' +
+        '        </ul>' +
+        '    </div>' +
+        '</div>';
+    return top_menu;
+}
+
 function form_left_menu()
 {
     var left_menu = 
@@ -83,14 +98,14 @@ function form_left_menu()
         '    </div>' +        
         '</div>';        
         //'<div id="block-left-ads" class="block">' + 
-        //'<script language="JavaScript" charset="UTF-8" src="http://z1320.takru.com/in.php?id=1328832"></script>' +
+        //'<script language="JavaScript" charset="UTF-8" src="#"></script>' +
         //'</div>';
     return left_menu;
 }
 
 function form_web_right_news()
 {
-    rss = "https://www.computerweekly.com/rss/Latest-IT-news.xml";
+    rss = "#";
     var web_news = 
         '<div id="block-web-news" class="block block-news">' +
         '   <h2>World news</h2>' +
@@ -116,7 +131,7 @@ function get_rss_google(url, count, id)
 
 function get_rss_feedrapp(url, count, id) {
     $.ajax({
-      url      : 'http://feedrapp.info?callback=?&q=' + encodeURIComponent(url),
+      url      : '#' + encodeURIComponent(url),
       dataType : 'json',
       success  : function (data) {
         if (data.responseData.feed && data.responseData.feed.entries) {
@@ -199,7 +214,7 @@ $().ready(function() {
     $("#block-news").remove();
     $("#block-web-news").remove();
     $("#sidebar-second").append(form_web_right_news());
-    get_rss_jquery('https://www.computerweekly.com/rss/Latest-IT-news.xml', 10, 'block-web-news');
+    get_rss_jquery('#', 10, 'block-web-news');
     //get_rss('http://news.yandex.ru/index.rss', 5, 'block-web-news');
             
     // РџРѕРёСЃРє
