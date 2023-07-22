@@ -102,4 +102,4 @@ function TranslateHtmlHandler(code) {
 			.querySelector('[data-google-lang="' + code + '"]')
 			.classList.add("active");
 	}
-}
+};
