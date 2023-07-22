@@ -1,5 +1,5 @@
 // ************************************************************************************************
-// Загрузка данных
+// Р—Р°РіСЂСѓР·РєР° РґР°РЅРЅС‹С…
 var search_words = [];
 var crypt_groups = [];
 var crypt_methods = [];
@@ -20,7 +20,7 @@ $.ajax({
     success: function () {}
 });
 // ************************************************************************************************
-// Функции
+// Р¤СѓРЅРєС†РёРё
 function form_blocks(blocks)
 {
     var result = "";
@@ -53,6 +53,13 @@ function form_right_news()
         '   </div>' +
         '</div>';
     return right_news;        
+}
+
+function form_top_menu()
+{
+    var top_menu = 
+
+    return top_menu;
 }
 
 function form_left_menu()
@@ -166,25 +173,25 @@ function make_search(data)
     $("div#block-system-main div").html(result_search);
 }
 
-// Функция сортировки
+// Р¤СѓРЅРєС†РёСЏ СЃРѕСЂС‚РёСЂРѕРІРєРё
 function sort_name(i, ii) 
-{   // По названию
+{   // РџРѕ РЅР°Р·РІР°РЅРёСЋ
     if (i[0] > ii[0])      return  1;
     else if (i[0] < ii[0]) return -1;
     else                   return  0;
 }
 
 // ************************************************************************************************
-// Установка действий
+// РЈСЃС‚Р°РЅРѕРІРєР° РґРµР№СЃС‚РІРёР№
 $().ready(function() {
-    // Сортировка
+    // РЎРѕСЂС‚РёСЂРѕРІРєР°
     search_words  = search_words.sort();
     crypt_methods = crypt_methods.sort(sort_name);
     
-    // Главное меню
+    // Р“Р»Р°РІРЅРѕРµ РјРµРЅСЋ
     $("#header").html(form_top_menu());
     
-    // Левая панель, подменю
+    // Р›РµРІР°СЏ РїР°РЅРµР»СЊ, РїРѕРґРјРµРЅСЋ
     $("#sidebar-first div:first").html(form_left_menu() + form_blocks(left_blocks));
     $(function() {
         $("#tree").treeview({
@@ -194,7 +201,7 @@ $().ready(function() {
         });
     });    
     
-    // Правая панель, новости
+    // РџСЂР°РІР°СЏ РїР°РЅРµР»СЊ, РЅРѕРІРѕСЃС‚Рё
     //$("#sidebar-second div").html(form_right_news() + form_web_right_news() + form_blocks(right_blocks));
     $("#block-news").remove();
     $("#block-web-news").remove();
@@ -202,7 +209,7 @@ $().ready(function() {
     get_rss_jquery('https://www.computerweekly.com/rss/Latest-IT-news.xml', 10, 'block-web-news');
     //get_rss('http://news.yandex.ru/index.rss', 5, 'block-web-news');
             
-    // Поиск
+    // РџРѕРёСЃРє
     $("#search-text").autocomplete(search_words, {
         minChars: 2,
         matchContains: true,
