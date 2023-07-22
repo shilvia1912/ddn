@@ -58,7 +58,15 @@ function form_right_news()
 function form_top_menu()
 {
     var top_menu = 
-
+        '<div id="main-menu">' +
+        '    <div id="main-menu-links">' +
+        '        <ul class="menu">' +
+        '            <li><a href="/en/" title="">Main</a></li>' +
+        '            <li><a href="/en/crypts/" title="">РЎonversions</a></li>' +
+        '            <li><a href="/en/contacts/" title="">Contacts</a></li>' +
+        '        </ul>' +
+        '    </div>' +
+        '</div>';
     return top_menu;
 }
 
