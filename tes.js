@@ -1,1 +1,105 @@
-/*@shinsenter/defer.js*/ !function(c,i,t){var f,o=/^data-(.+)/,u='IntersectionObserver',r=/p/.test(i.readyState),s=[],a=s.slice,d='lazied',n='load',e='pageshow',l='forEach',m='hasAttribute',h='shift';function p(e){i.head.appendChild(e)}function v(e,n){a.call(e.attributes)[l](n)}function y(e,n,t,o){return o=(o=n?i.getElementById(n):o)||i.createElement(e),n&&(o.id=n),t&&(o.onload=t),o}function b(e,n){return a.call((n||i).querySelectorAll(e))}function g(t,e){b('source',t)[l](g),v(t,function(e,n){(n=o.exec(e.name))&&(t[n[1]]=e.value)}),e&&(t.className+=' '+e),n in t&&t[n]()}function I(e){f(function(o){o=b(e||'[type=deferjs]'),function e(n,t){(n=o[h]())&&(n.parentNode.removeChild(n),(t=y(n.nodeName)).text=n.text,v(n,function(e){'type'!=e.name&&(t[e.name]=e.value)}),t.src&&!t[m]('async')?(t.onload=t.onerror=e,p(t)):(p(t),e()))}()})}(f=function(e,n){r?t(e,n):s.push(e,n)}).all=I,f.js=function(n,t,e,o){f(function(e){(e=y('SCRIPT',t,o)).src=n,p(e)},e)},f.css=function(n,t,e,o){f(function(e){(e=y('LINK',t,o)).rel='stylesheet',e.href=n,p(e)},e)},f.dom=function(e,n,t,o,i){function r(e){o&&!1===o(e)||g(e,t)}f(function(t){t=u in c&&new c[u](function(e){e[l](function(e,n){e.isIntersecting&&(n=e.target)&&(t.unobserve(n),r(n))})},i),b(e||'[data-src]')[l](function(e){e[m](d)||(e.setAttribute(d,''),t?t.observe(e):r(e))})},n)},f.reveal=g,c.Defer=f,c.addEventListener('on'+e in c?e:n,function(){for(I();s[0];t(s[h](),s[h]()))r=1})}(this,document,setTimeout),function(e,n){e.defer=n=e.Defer,e.deferscript=n.js,e.deferstyle=n.css,e.deferimg=e.deferiframe=n.dom}(this);
+/*!***************************************************
+ * google-translate.js v1.0.5
+ * https://Get-Web.Site/
+ * author: Vitalii P.
+ *****************************************************/
+
+const googleTranslateConfig = {
+	/* Original language */
+	lang: "id",
+
+	/* The language we translate into on the first visit*/
+	/* langFirstVisit: 'en', */
+
+	/* If the script does not work or does not work correctly, uncomment and specify the main domain in the domain property */
+	/* domain: "Get-Web.Site" */
+};
+
+document.addEventListener("DOMContentLoaded", (event) => {
+	/* Connecting the google translate widget */
+	let script = document.createElement("script");
+	script.src = `//translate.google.com/translate_a/element.js?cb=TranslateWidgetIsLoaded`;
+	document.getElementsByTagName("head")[0].appendChild(script);
+});
+
+function TranslateWidgetIsLoaded() {
+	TranslateInit(googleTranslateConfig);
+}
+
+function TranslateInit(config) {
+	if (config.langFirstVisit && !Cookies.get("googtrans")) {
+		/* If the translation language is installed for the first visit and cookies are not assigned */
+		TranslateCookieHandler("/auto/" + config.langFirstVisit);
+	}
+
+	let code = TranslateGetCode(config);
+
+	TranslateHtmlHandler(code);
+
+	if (code == config.lang) {
+		/* If the default language is the same as the language we are translating into, then we clear the cookies */
+		TranslateCookieHandler(null, config.domain);
+	}
+
+	/* Initialize the widget with the default language */
+	new google.translate.TranslateElement({
+		pageLanguage: config.lang,
+		multilanguagePage: true, // Your page contains content in more than one languages
+	});
+
+	/* Assigning a handler to the flags */
+	TranslateEventHandler("click", "[data-google-lang]", function (e) {
+		TranslateCookieHandler(
+			"/" + config.lang + "/" + e.getAttribute("data-google-lang"),
+			config.domain
+		);
+		/* Перезагружаем страницу */
+		/* Reloading the page */
+		window.location.reload();
+	});
+}
+
+function TranslateGetCode(config) {
+	/* If there are no cookies, then we pass the default language */
+	let lang =
+		Cookies.get("googtrans") != undefined && Cookies.get("googtrans") != "null"
+			? Cookies.get("googtrans")
+			: config.lang;
+	return lang.match(/(?!^\/)[^\/]*$/gm)[0];
+}
+
+function TranslateCookieHandler(val, domain) {
+	/* Writing down cookies /language_for_translation/the_language_we_are_translating_into */
+	Cookies.set("googtrans", val);
+	Cookies.set("googtrans", val, {
+		domain: "." + document.domain,
+	});
+	Cookies.remove('googtrans', { domain: "." + "www.dewicode.my.id" }); // removed!
+
+	if (domain == "undefined") return;
+	/* записываем куки для домена, если он назначен в конфиге */
+	/* Writing down cookies for the domain, if it is assigned in the config */
+	Cookies.set("googtrans", val, {
+		domain: domain,
+	});
+
+	Cookies.set("googtrans", val, {
+		domain: "." + domain,
+	});
+}
+
+function TranslateEventHandler(event, selector, handler) {
+	document.addEventListener(event, function (e) {
+		let el = e.target.closest(selector);
+		if (el) handler(el);
+	});
+}
+
+function TranslateHtmlHandler(code) {
+	/* We get the language to which we translate and produce the necessary manipulations with DOM */
+	if (document.querySelector('[data-google-lang="' + code + '"]') !== null) {
+		document
+			.querySelector('[data-google-lang="' + code + '"]')
+			.classList.add("active");
+	}
+}
