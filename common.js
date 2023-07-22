@@ -55,18 +55,6 @@ function form_right_news()
     return right_news;        
 }
 
-function form_top_menu()
-{
-    var top_menu = 
-        '<div id="main-menu">' +
-        '    <div id="main-menu-links">' +
-        '        <ul class="menu">' +
-        '        </ul>' +
-        '    </div>' +
-        '</div>';
-    return top_menu;
-}
-
 function form_left_menu()
 {
     var left_menu = 
